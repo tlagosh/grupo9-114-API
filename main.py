@@ -65,7 +65,7 @@ def no_body(e):
 
 
 #Página de inicio
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
     '''
     Página de inicio
