@@ -65,7 +65,7 @@ def no_body(e):
 
 
 #Página de inicio
-@app.route("/", methods=["GET"])
+@app.route("/")
 def home():
     '''
     Página de inicio
@@ -84,13 +84,14 @@ def get_users():
 @app.route("/users/<int:uid>")
 def get_user(uid):
     '''
-    Obtiene el usuario de id entregado
+    Obtiene usuario de id entregado
     '''
     user = list(usuarios.find({"uid": uid}, {"_id": 0}))
     if len(user) == 0:
         return no_uid(uid)
 
     user[0]["mesagges_sended"] = list(mensajes.find({"sender": uid}, {"_id": 0}))
+    user[0]["mesagges_received"] = list(mensajes.find({"receptant": uid}, {"_id": 0}))
 
     return json.jsonify(user)
 
@@ -257,4 +258,4 @@ def text_search():
     
 
 if __name__ == "__main__":
-    app.run(debug=True, port= 5000)
+    app.run(debug=True)
